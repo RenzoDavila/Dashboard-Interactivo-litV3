@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Lit 3 + JS</title>
+  </head>
+  <body>
+    <my-counter></my-counter>
+
+    <script type="module">
+      import {LitElement, html, css} from 'https://cdn.jsdelivr.net/npm/lit@3/index.js';
+
+      class MyCounter extends LitElement {
+        static properties = {
+          count: { type: Number, reflect: true }, // propiedad reactiva
+        };
+
+        static styles = css`
+          :host {
+            display: inline-block;
+            font-family: system-ui, sans-serif;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+          }
+          button {
+            margin-right: 8px;
+          }
+          .count {
+            font-weight: bold;
+          }
+        `;
+
+        constructor() {
+          super();
+          this.count = 0;
+        }
+
+        render() {
+          return html`
+            <button @click=${this._dec}>-</button>
+            <span class="count">${this.count}</span>
+            <button @click=${this._inc}>+</button>
+          `;
+        }
+
+        _inc = () => (this.count++);
+        _dec = () => (this.count--);
+      }
+
+      customElements.define('my-counter', MyCounter);
+    </script>
+  </body>
+</html>
