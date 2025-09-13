@@ -1,16 +1,21 @@
 {
   "name": "DashBoard-Interactivo",
-  "#name_nota#": "esto se usa para correr comandos en la terminal",
+  "#name_nota#": "Este es el nombre del proyecto",
+  "private": true,
+  "#private_nota#": "Indica que el paquete no se puede publicar en el registro de npm (npm publish falla).",
+  "type": "module",
+  "#type_nota#": "Hace que todos los archivos .js del paquete se traten como ES Modules para que se pueda usar import/export.",
   "scripts": {
-  "#scripts_nota#": "esto se usa para correr comandos en la terminal",
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview"
+    "#scripts_nota#": "Esto se usa para correr comandos en la terminal",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "lit": "^3.3.1"
   },
   "devDependencies": {
+    "sass": "^1.92.1",
     "vite": "^7.1.5"
   }
 }

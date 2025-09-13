@@ -1,0 +1,102 @@
+:root {
+  color-scheme: dark;
+
+  /* Palette oscura */
+  --bg: #0b0f14;
+  --surface: #0f1620;
+  --surface-2: #121a26;
+  --elevated: #0f1b2d;
+  --border: #253041;
+
+  --text: #e5e7eb;
+  --text-muted: #a1a8b3;
+
+  --primary-400: #92b4ff;
+  --primary-500: #7aa2f7; /* azul suave (estilo Tokyo Night) */
+  --primary-600: #5e86e8;
+  --primary: var(--primary-500);
+
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger:  #ef4444;
+
+  --ring: 0 0 0 3px color-mix(in oklab, var(--primary) 35%, transparent);
+  --radius: 10px;
+  --shadow-1: 0 6px 24px rgba(0,0,0,.25);
+  --shadow-2: 0 10px 40px rgba(0,0,0,.35);
+
+  /* escala de espacios */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px;
+  --space-4: 16px; --space-5: 24px; --space-6: 32px;
+}
+
+/* Tema claro opcional: activas con  */
+body[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --surface-2: #f3f4f7;
+  --elevated: #ffffff;
+  --border: #e5e7eb;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --primary-400: #7aa2f7; --primary-500: #4f80ff; --primary-600: #3a69e5;
+}
+
+/* Reset y bases /
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { height: 100%; margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 400 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+img, svg, video { max-width: 100%; display: block; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+::selection { background: color-mix(in oklab, var(--primary) 35%, transparent); color: var(--text); }
+
+/* Contenedor y helpers */
+.container { max-width: 1100px; margin-inline: auto; padding: 0 var(--space-4); }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+}
+.hr { border: 0; border-top: 1px solid var(--border); }
+
+/* Controles base */
+button, input, select, textarea { font: inherit; color: inherit; }
+button {
+  padding: 8px 12px;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+}
+button:hover {
+  background: color-mix(in oklab, var(--primary) 8%, var(--surface-2));
+  border-color: color-mix(in oklab, var(--primary) 30%, var(--border));
+}
+button:focus-visible { outline: none; box-shadow: var(--ring); }
+button.primary {
+  background: var(--primary);
+  color: #0b0f14;
+  border-color: transparent;
+}
+button.primary:hover { background: var(--primary-600); }
+
+/* Scrollbar sutil (navegadores compatibles) */
+:root { scrollbar-color: var(--border) transparent; }
+
+/* Espaciados utilitarios */
+.mt-4 { margin-top: var(--space-4); }
+.mb-4 { margin-bottom: var(--space-4); }
+.p-4  { padding: var(--space-4); }
