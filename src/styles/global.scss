@@ -43,7 +43,7 @@ body[data-theme="light"] {
   --primary-400: #7aa2f7; --primary-500: #4f80ff; --primary-600: #3a69e5;
 }
 
-/* Reset y bases /
+/* Reset y bases */
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -60,8 +60,8 @@ img, svg, video { max-width: 100%; display: block; }
 a { color: var(--primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
 ::selection { background: color-mix(in oklab, var(--primary) 35%, transparent); color: var(--text); }
-
 /* Contenedor y helpers */
+
 .container { max-width: 1100px; margin-inline: auto; padding: 0 var(--space-4); }
 .card {
   background: var(--surface);

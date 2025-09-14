@@ -7,6 +7,7 @@ class TodoList extends LitElement {
     static properties = {
         items: { type: Array },
         filterDone: { type: Boolean, attribute: 'filter-done', reflect: true },
+        count: { type: Number },
     };
 
     static styles = css`
@@ -17,20 +18,34 @@ class TodoList extends LitElement {
     constructor() {
         super();
         this.items = [
-        { id: 1, text: 'Aprender Lit', done: true },
-        { id: 2, text: 'Construir un componente', done: false },
+            { id: 1, text: 'Aprender Lit', done: true },
+            { id: 2, text: 'Construir un componente', done: false },
         ];
+        this.count = 0;
         this.filterDone = false;
+        console.log('this.count en constructor (learning-lifecycle) ==>', this.count);
+    }
+
+    updated(changed) {
+            console.log('changed en updated (learning-lifecycle) ==>', changed);
+        if (changed.has('filterDone')) {
+            console.log('cambió updated filterDone (learning-lifecycle) ==>', this.filterDone);
+        }
     }
 
     firstUpdated() {
-    console.log('Primer render listo');
+        console.log('Primer render listo firstUpdated (learning-lifecycle)');
     }
-    
-    updated(changed) {
-    if (changed.has('filterDone')) {
-        console.log('cambió filterDone', this.filterDone);
-    }
+
+    addNew() {
+        this.count++;
+        console.log('this.count addNew (learning-lifecycle) ==>', this.count);
+        this.items = [...this.items, { id: Date.now(), text: `Nuevo ítem ${this.count}`, done: false }];
+        // this.dispatchEvent(new CustomEvent('add-todo', {
+        //     detail: { text: 'Nuevo ítem' },
+        //     bubbles: true,
+        //     composed: true
+        // }));
     }
 
     render() {
@@ -39,6 +54,12 @@ class TodoList extends LitElement {
             <!-- <slot></slot> -->
         <button @click=${() => (this.filterDone = !this.filterDone)}>
             ${this.filterDone ? 'Mostrar todos' : 'Ocultar hechos'}
+        </button>
+        <button
+            class="action"
+            @click=${this.addNew}
+        >
+            Agregar Nueva tarea
         </button>
 
         <ul>
