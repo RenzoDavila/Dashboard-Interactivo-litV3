@@ -3,15 +3,11 @@ import { sharedStyles } from '../styles/shared-styles.js';
 import '../components/widget/random-character.js';
 import '../components/widget/add-notes.js';
 import '../components/widget/view-notes.js';
+import '../components/widget/caculator.js';
 
 export class ModuleWidget extends LitElement {
     static properties = { 
-        // widgets: {
-        //     id: Number,
-        //     text: String
-        // },
-        widgets: {type: Array },
-        widgetsCount: {type: Number },
+        widgets: { type: Array },
         notes: { type: Array },
         notesNotExist: { type: Boolean },
     };
@@ -23,12 +19,9 @@ export class ModuleWidget extends LitElement {
             padding: 16px;
             background-color: var(--surface-2);
         }
-        h1 {
-            margin: 0 0 12px;
-        }
-        .danger {
-            position: relative;
-            top: 20px;
+        .widget-actions button {
+            margin-right: 6px;
+            margin-bottom: 6px;
         }
     `];
 
@@ -36,29 +29,68 @@ export class ModuleWidget extends LitElement {
         super();
         this.widgets = [];
         this.notes = [];
-        this.widgetsCount = 0;
         this.notesNotExist = true;
+        this._nextId = 1; // Para ids únicos
     }
 
     onSelectChange(e) {
         const valorSeleccionado = e.target.value;
-        switch(valorSeleccionado) {
+        if (!valorSeleccionado) return;
+        const widgetData = { 
+            id: this._nextId++,
+            type: valorSeleccionado
+        };
+        this.widgets = [...this.widgets, widgetData];
+
+        if (valorSeleccionado === 'add-notes') this.notesNotExist = false;
+        e.target.value = "";
+    }
+
+    _deleteWidget(id) {
+        this.widgets = this.widgets.filter(w => w.id !== id);
+        if (!this.widgets.some(w => w.type === 'add-notes')) this.notesNotExist = true;
+    }
+
+    _moveWidget(id, direction) {
+        const idx = this.widgets.findIndex(w => w.id === id);
+        if (idx === -1) return;
+        let newWidgets = [...this.widgets];
+        if (direction === 'up' && idx > 0) {
+            [newWidgets[idx-1], newWidgets[idx]] = [newWidgets[idx], newWidgets[idx-1]];
+        } else if (direction === 'down' && idx < newWidgets.length-1) {
+            [newWidgets[idx], newWidgets[idx+1]] = [newWidgets[idx+1], newWidgets[idx]];
+        }
+        this.widgets = newWidgets;
+    }
+
+    _renderWidget(widget, idx) {
+        let widgetElement;
+        switch(widget.type) {
             case 'random-character':
-                this.widgets = [...this.widgets, html`<div class="col-12 col-md-6 col-lg-4"> <button class="danger ml-2" @click=${this.addNew}> Borrar </button> <random-character></random-character> </div>`];
-                this.widgetsCount++;
+                widgetElement = html`<random-character></random-character>`;
                 break;
             case 'add-notes':
-                this.widgets = [...this.widgets, html`<div class="col-12 col-md-6 col-lg-4"> <add-notes></add-notes> </div>`];
-                this.notesNotExist = false;
-                this.widgetsCount++;
+                widgetElement = html`<add-notes @add-note=${this._onAddNote}></add-notes>`;
                 break;
             case 'view-notes':
-                this.widgets = [...this.widgets, html`<div class="col-12 col-md-6 col-lg-4"> <view-notes .items=${this.notes}></view-notes> </div>`];
-                this.widgetsCount++;
+                widgetElement = html`<view-notes .items=${this.notes}></view-notes>`;
                 break;
+            case 'simple-calculator':
+                widgetElement = html`<simple-calculator></simple-calculator>`;
+                break;
+            default:
+                widgetElement = nothing;
         }
-        console.log("this.widgets", this.widgets)
-        e.target.value = "";
+        return html`
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="widget-actions">
+                <button @click=${() => this._moveWidget(widget.id, 'up')} ?disabled=${idx===0}>⬆️</button>
+                <button @click=${() => this._moveWidget(widget.id, 'down')} ?disabled=${idx===this.widgets.length-1}>⬇️</button>
+                <button class="danger" @click=${() => this._deleteWidget(widget.id)}>🗑️ Borrar</button>
+            </div>
+            ${widgetElement}
+        </div>
+        `;
     }
 
     render() {
@@ -66,25 +98,30 @@ export class ModuleWidget extends LitElement {
         <div class="container">
             <h1>Modulo Widgets</h1>
             <h3>En este módulo encontrarás ejemplos y prácticas para aprender sobre widgets y su implementación en Lit, incluyendo la composición de widgets reutilizables, la comunicación entre ellos, la personalización mediante propiedades, y las mejores prácticas para integrarlos en tus aplicaciones web.</h3>
-        </div>
-        <div class="row m-6"> 
-            <div class="col-6">
-                <select @change=${this.onSelectChange}>
-                    <option value="">Generar Widget</option>
-                    <option value="random-character">Random Character</option>
-                    <!-- <option value="add-notes">Add Notes</option> -->
-                    ${this.notesNotExist ? html`<option value="add-notes">Add Notes</option>` : nothing}
-                    <option value="view-notes">View Notes</option>
-                </select>
+            <div class="row m-6"> 
+                <div class="col-6">
+                    <select @change=${this.onSelectChange}>
+                        <option value="">Generar Widget</option>
+                        <option value="random-character">Random Character</option>
+                        ${this.notesNotExist ? html`<option value="add-notes">Add Notes</option>` : nothing}
+                        <option value="view-notes">View Notes</option>
+                        <option value="simple-calculator">calculator</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    Widgets generados: ${this.widgets.length}
+                </div>
             </div>
-            <div class="col-6">
-                Widgets generados: ${this.widgetsCount}
+            <div class="row">
+                ${this.widgets.map((widget, idx) => this._renderWidget(widget, idx))}
             </div>
-        </div>
-        <div class="row">
-            ${this.widgets.map(widget => widget)}
         </div>
         `;
+    }
+
+    _onAddNote(e) {
+        console.log('add-todo event:', e.detail);
+        this.events = [...this.events, `TodoList - add-todo event: ${e.detail.text}`];
     }
 }
 
