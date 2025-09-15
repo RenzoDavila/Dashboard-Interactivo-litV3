@@ -22,7 +22,8 @@ export const baseControlsStyles = css`
         font: inherit;
         color: inherit;
     }
-    button {
+
+    button, select {
         padding: 8px 12px;
         background: var(--surface-2);
         color: var(--text);
@@ -30,49 +31,71 @@ export const baseControlsStyles = css`
         border-radius: 8px;
         cursor: pointer;
     }
-    button:hover {
+
+    /* Hover */
+    button:hover,
+    select:hover {
         cursor: pointer;
         background: color-mix(in oklab, var(--primary) 8%, var(--surface-2));
         border-color: color-mix(in oklab, var(--primary) 30%, var(--border));
     }
-    button:focus-visible {
+
+    /* Focus visible */
+    button:focus-visible,
+    select:focus-visible {
         outline: none;
         box-shadow: var(--ring);
     }
-    button.primary {
+
+    /* Variant: primary */
+    button.primary,
+    select.primary {
         background: var(--primary);
         color: #0b0f14;
         border-color: transparent;
         font-weight: 600;
     }
-    button.primary:hover {
+    button.primary:hover,
+    select.primary:hover {
         background: color-mix(in oklab, var(--primary) 90%, var(--surface-2));
     }
-    button.success {
+
+    /* Variant: success */
+    button.success,
+    select.success {
         background: var(--success);
         color: #0b0f14;
         border-color: transparent;
         font-weight: 600;
     }
-    button.success:hover {
+    button.success:hover,
+    select.success:hover {
         background: color-mix(in oklab, var(--success) 90%, var(--surface-2));
     }
-    button.warning {
+
+    /* Variant: warning */
+    button.warning,
+    select.warning {
         background: var(--warning);
         color: #0b0f14;
         border-color: transparent;
         font-weight: 600;
     }
-    button.warning:hover {
+    button.warning:hover,
+    select.warning:hover {
         background: color-mix(in oklab, var(--warning) 90%, var(--surface-2));
     }
-    button.danger {
+
+    /* Variant: danger */
+    button.danger,
+    select.danger {
         background: var(--danger);
         color: #0b0f14;
         border-color: transparent;
         font-weight: 600;
     }
-    button.danger:hover {
+    button.danger:hover,
+    select.danger:hover {
         background: color-mix(in oklab, var(--danger) 90%, var(--surface-2));
     }
 

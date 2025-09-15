@@ -37,8 +37,8 @@ export class AppRoot extends LitElement {
 
     render() {
         return html`
-        <h1>Dashboar desde el componente main</h1>
         <app-navbar active=${this.actualTab} @navigate=${this._navigate}></app-navbar>
+        <!-- <h1>Dashboar desde el componente main</h1> -->
         ${this._renderSwitch(this.actualTab)}
         `;
     }
