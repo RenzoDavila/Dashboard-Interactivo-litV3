@@ -42,9 +42,9 @@ class TodoList extends LitElement {
         console.log('this.count en constructor (learning-lifecycle) ==>', this.count);
     }
 
-    updated(changed) {
+    updated(changed) { // investigar mas sobre el ciclo de vida
             console.log('changed en updated (learning-lifecycle) ==>', changed);
-        if (changed.has('filterDone')) {
+        if (changed.has('filterDone')) { // evitar rerendering
             console.log('cambió updated filterDone (learning-lifecycle) ==>', this.filterDone);
         }
     }
