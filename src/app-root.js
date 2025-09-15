@@ -1,8 +1,12 @@
 import { LitElement, html, css } from 'lit';
 import './components/shared/app-navbar.js';
-import './components/learning/learning.js';
+import './views/learning.js';
+import './views/widget.js';
+import './views/register.js';
 
 export class AppRoot extends LitElement {
+    static properties = { actualTab: { type: String }};
+
     static styles = css`
         :host { 
             display: block;
@@ -18,14 +22,27 @@ export class AppRoot extends LitElement {
 
     constructor() {
         super();
+        // Valor inicial de la pestaña activa
+        this.actualTab = 'widget';
     }
 
     render() {
         return html`
         <h1>Dashboar desde el componente main</h1>
-        <app-navbar></app-navbar>
-        <module-learning></module-learning>
+        <app-navbar active=${this.actualTab} @navigate=${this._navigate}></app-navbar>
+        ${
+            this.actualTab === 'widget' ? html`<module-widget></module-widget>` :
+            this.actualTab === 'register' ? html`<module-register></module-register>` :
+            this.actualTab === 'learning' ? html`<module-learning></module-learning>` :
+            html`<p>Esta pagina no existe</p>`
+        }
+        
         `;
+    }
+
+    _navigate(e) {
+        console.log('_navigate', e.detail)
+        this.actualTab = e.detail;
     }
 }
 

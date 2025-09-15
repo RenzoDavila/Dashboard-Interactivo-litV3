@@ -4,6 +4,8 @@ import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
 import learningIcon from '../../assets/icons/learning.svg?raw';
 import registerIcon from '../../assets/icons/register.svg?raw';
 import widgetIcon from '../../assets/icons/widget.svg?raw';
+import sunIcon from '../../assets/icons/sun.svg?raw';
+import moonIcon from '../../assets/icons/moon.svg?raw';
 
 export class AppNavbar extends LitElement {
     static styles = [
@@ -13,7 +15,6 @@ export class AppNavbar extends LitElement {
             align-items: center;
             justify-content: space-between;
             background: var(--surface);
-            padding: var(--space-4);
             border-radius: var(--radius);
             box-shadow: var(--shadow-1);
             margin-bottom: var(--space-5);
@@ -34,11 +35,11 @@ export class AppNavbar extends LitElement {
         .nav-icon-btn.active,
         .nav-icon-btn:hover {
             color: var(--primary);
-            background: var(--surface-variant, #ececec);
+            background: var(--border);
         }
         .nav-icon-btn svg {
-            width: 32px;
-            height: 32px;
+            width: 64px;
+            height: 64px;
             display: block;
         }
         .navbar-right {
@@ -67,15 +68,14 @@ export class AppNavbar extends LitElement {
 
     constructor() {
         super();
-        this.active = 'inicio';
-        // ...tu lógica de tema...
+        this.active = 'widget'; // Valor por defecto si desde el padre no se envia nada
         const storedTheme = localStorage.getItem('theme');
         if (storedTheme === 'light') {
-        document.body.setAttribute('data-theme', 'light');
-        this.isLight = true;
+            document.body.setAttribute('data-theme', 'light');
+            this.isLight = true;
         } else {
-        document.body.removeAttribute('data-theme');
-        this.isLight = false;
+            document.body.removeAttribute('data-theme');
+            this.isLight = false;
         }
     }
 
@@ -106,45 +106,51 @@ export class AppNavbar extends LitElement {
 
     setActive(tab) {
         this.active = tab;
-        // Aquí puedes emitir un evento o cambiar la ruta usando tu router
-        // Por ejemplo:
-        // window.location.hash = tab; 
-        // o this.dispatchEvent(new CustomEvent('navigate', {detail: tab}));
+        this.dispatchEvent(new CustomEvent('navigate', {
+            detail: tab,
+            bubbles: true,
+            composed: true
+        }));
     }
 
     render() {
         return html`
-        <nav>
+        <nav class="p-2">
             <div class="nav-links">
-            <button 
-                class="nav-icon-btn ${this.active === 'learning' ? 'active' : ''}"
-                @click=${() => this.setActive('learning')}
-                title="Inicio"
-                aria-label="Inicio"
-            >
-                ${unsafeSVG(learningIcon)}
-            </button>
-            <button 
-                class="nav-icon-btn ${this.active === 'register' ? 'active' : ''}"
-                @click=${() => this.setActive('register')}
-                title="Proyectos"
-                aria-label="Proyectos"
-            >
-                ${unsafeSVG(registerIcon)}
-            </button>
-            <button 
-                class="nav-icon-btn ${this.active === 'widget' ? 'active' : ''}"
-                @click=${() => this.setActive('widget')}
-                title="Contacto"
-                aria-label="Contacto"
-            >
-                ${unsafeSVG(widgetIcon)}
-            </button>
+                <button 
+                    class="nav-icon-btn ${this.active === 'widget' ? 'active' : ''}"
+                    @click=${() => this.setActive('widget')}
+                    title="Widgets"
+                    aria-label="Widgets"
+                >
+                    ${unsafeSVG(widgetIcon)}
+                </button>
+                <button 
+                    class="nav-icon-btn ${this.active === 'register' ? 'active' : ''}"
+                    @click=${() => this.setActive('register')}
+                    title="Registros"
+                    aria-label="Registros"
+                >
+                    ${unsafeSVG(registerIcon)}
+                </button>
+                <button 
+                    class="nav-icon-btn ${this.active === 'learning' ? 'active' : ''}"
+                    @click=${() => this.setActive('learning')}
+                    title="Aprendido"
+                    aria-label="Aprendido"
+                >
+                    ${unsafeSVG(learningIcon)}
+                </button>
             </div>
             <div class="navbar-right">
-            <button @click=${this.toggleTheme}>
-                Cambiar a tema ${this.isLight ? 'oscuro' : 'claro'}
-            </button>
+                <button 
+                    class="nav-icon-btn"
+                    @click=${this.toggleTheme}
+                    title="Cambiar Tema"
+                    aria-label="Cambiar Tema Claro/Oscuro"
+                >
+                    ${this.isLight ? unsafeSVG(moonIcon) : unsafeSVG(sunIcon)}
+                </button>
             </div>
         </nav>
         `;

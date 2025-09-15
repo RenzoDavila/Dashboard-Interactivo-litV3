@@ -48,6 +48,33 @@ export const baseControlsStyles = css`
     button.primary:hover {
         background: color-mix(in oklab, var(--primary) 90%, var(--surface-2));
     }
+    button.success {
+        background: var(--success);
+        color: #0b0f14;
+        border-color: transparent;
+        font-weight: 600;
+    }
+    button.success:hover {
+        background: color-mix(in oklab, var(--success) 90%, var(--surface-2));
+    }
+    button.warning {
+        background: var(--warning);
+        color: #0b0f14;
+        border-color: transparent;
+        font-weight: 600;
+    }
+    button.warning:hover {
+        background: color-mix(in oklab, var(--warning) 90%, var(--surface-2));
+    }
+    button.danger {
+        background: var(--danger);
+        color: #0b0f14;
+        border-color: transparent;
+        font-weight: 600;
+    }
+    button.danger:hover {
+        background: color-mix(in oklab, var(--danger) 90%, var(--surface-2));
+    }
 
     img, svg, video {
         max-width: 100%;
@@ -64,6 +91,8 @@ export const baseControlsStyles = css`
         background: color-mix(in oklab, var(--primary) 35%,
         transparent); color: var(--text);
     }
+
+    .muted { color: var(--text-muted);}
     /* elementos de interfaces */
 `;
 
