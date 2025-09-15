@@ -26,17 +26,20 @@ export class AppRoot extends LitElement {
         this.actualTab = 'widget';
     }
 
+    _renderSwitch(opcion) {
+        switch(opcion) {
+            case 'widget': return html`<module-widget></module-widget>`;
+            case 'register': return html`<module-register></module-register>`;
+            case 'learning': return html`<module-learning></module-learning>`;
+            default: return html`<h2>404</h2>`;
+        }
+    }
+
     render() {
         return html`
         <h1>Dashboar desde el componente main</h1>
         <app-navbar active=${this.actualTab} @navigate=${this._navigate}></app-navbar>
-        ${
-            this.actualTab === 'widget' ? html`<module-widget></module-widget>` :
-            this.actualTab === 'register' ? html`<module-register></module-register>` :
-            this.actualTab === 'learning' ? html`<module-learning></module-learning>` :
-            html`<p>Esta pagina no existe</p>`
-        }
-        
+        ${this._renderSwitch(this.actualTab)}
         `;
     }
 

@@ -23,7 +23,7 @@ export class ModuleRegister extends LitElement {
     render() {
         return html`
         <h1>Modulo Register</h1>
-        <h3>En este módulo encontrarás una tabla que consume servicios de un API.</h3>
+        <h3>En este módulo encontrarás ejemplos y prácticas para aprender a consumir datos de una API y mostrarlos en una tabla utilizando Lit. Aprenderás cómo realizar peticiones HTTP, manejar las respuestas, y presentar la información de manera dinámica y eficiente en tu aplicación web.</h3>
         `;
     }
 }
