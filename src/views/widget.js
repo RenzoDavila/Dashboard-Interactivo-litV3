@@ -22,8 +22,10 @@ export class ModuleWidget extends LitElement {
 
     render() {
         return html`
-        <h1>Modulo Widgets</h1>
-        <h3>En este módulo encontrarás ejemplos y prácticas para aprender sobre widgets y su implementación en Lit, incluyendo la composición de widgets reutilizables, la comunicación entre ellos, la personalización mediante propiedades, y las mejores prácticas para integrarlos en tus aplicaciones web.</h3>
+        <div class="container">
+            <h1>Modulo Widgets</h1>
+            <h3>En este módulo encontrarás ejemplos y prácticas para aprender sobre widgets y su implementación en Lit, incluyendo la composición de widgets reutilizables, la comunicación entre ellos, la personalización mediante propiedades, y las mejores prácticas para integrarlos en tus aplicaciones web.</h3>
+        </div>
         `;
     }
 }

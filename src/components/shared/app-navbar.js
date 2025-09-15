@@ -115,44 +115,46 @@ export class AppNavbar extends LitElement {
 
     render() {
         return html`
-        <nav class="p-2">
-            <div class="nav-links">
-                <button 
-                    class="nav-icon-btn ${this.active === 'widget' ? 'active' : ''}"
-                    @click=${() => this.setActive('widget')}
-                    title="Widgets"
-                    aria-label="Widgets"
-                >
-                    ${unsafeSVG(widgetIcon)}
-                </button>
-                <button 
-                    class="nav-icon-btn ${this.active === 'register' ? 'active' : ''}"
-                    @click=${() => this.setActive('register')}
-                    title="Registros"
-                    aria-label="Registros"
-                >
-                    ${unsafeSVG(registerIcon)}
-                </button>
-                <button 
-                    class="nav-icon-btn ${this.active === 'learning' ? 'active' : ''}"
-                    @click=${() => this.setActive('learning')}
-                    title="Aprendido"
-                    aria-label="Aprendido"
-                >
-                    ${unsafeSVG(learningIcon)}
-                </button>
-            </div>
-            <div class="navbar-right">
-                <button 
-                    class="nav-icon-btn"
-                    @click=${this.toggleTheme}
-                    title="Cambiar Tema"
-                    aria-label="Cambiar Tema Claro/Oscuro"
-                >
-                    ${this.isLight ? unsafeSVG(moonIcon) : unsafeSVG(sunIcon)}
-                </button>
-            </div>
-        </nav>
+        <div class="container">
+            <nav class="p-2">
+                <div class="nav-links">
+                    <button 
+                        class="nav-icon-btn ${this.active === 'widget' ? 'active' : ''}"
+                        @click=${() => this.setActive('widget')}
+                        title="Widgets"
+                        aria-label="Widgets"
+                    >
+                        ${unsafeSVG(widgetIcon)}
+                    </button>
+                    <button 
+                        class="nav-icon-btn ${this.active === 'register' ? 'active' : ''}"
+                        @click=${() => this.setActive('register')}
+                        title="Registros"
+                        aria-label="Registros"
+                    >
+                        ${unsafeSVG(registerIcon)}
+                    </button>
+                    <button 
+                        class="nav-icon-btn ${this.active === 'learning' ? 'active' : ''}"
+                        @click=${() => this.setActive('learning')}
+                        title="Aprendido"
+                        aria-label="Aprendido"
+                    >
+                        ${unsafeSVG(learningIcon)}
+                    </button>
+                </div>
+                <div class="navbar-right">
+                    <button 
+                        class="nav-icon-btn"
+                        @click=${this.toggleTheme}
+                        title="Cambiar Tema"
+                        aria-label="Cambiar Tema Claro/Oscuro"
+                    >
+                        ${this.isLight ? unsafeSVG(moonIcon) : unsafeSVG(sunIcon)}
+                    </button>
+                </div>
+            </nav>
+        </div>
         `;
     }
 }
