@@ -1,13 +1,21 @@
 import { LitElement, html, css } from 'lit';
+import { sharedStyles } from '../../styles/shared-styles.js';
 import './primer-componente.js';
 import './lifecycle.js';
 import './form.js';
 
 export class AppRoot extends LitElement {
-    static styles = css`
-        :host { display: block; padding: 16px; background-color: var(--surface-2);}
-        h1 { margin: 0 0 12px; }
-    `;
+    static styles = [
+        sharedStyles, css`
+        :host {
+            display: block;
+            padding: 16px;
+            background-color: var(--surface-2);
+        }
+        h1 {
+            margin: 0 0 12px;
+        }
+    `];
 
     render() {
         return html`

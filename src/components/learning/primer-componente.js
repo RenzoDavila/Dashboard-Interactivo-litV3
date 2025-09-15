@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { sharedStyles } from '../../styles/shared-styles.js';
 
 export class PrimerComponente extends LitElement {
   static properties = {
@@ -6,7 +7,8 @@ export class PrimerComponente extends LitElement {
     count: { type: Number },
   };
 
-  static styles = css`
+  static styles = [
+    sharedStyles, css`
     :host {
       display: block;
       background: var(--surface);
@@ -20,18 +22,11 @@ export class PrimerComponente extends LitElement {
       margin: 0 0 var(--space-3);
       color: var(--text);
     }
-    .action {
-      background: var(--primary);
-      color: #0b0f14;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 12px;
-    }
     .action:focus-visible {
       outline: none;
       box-shadow: var(--ring);
     }
-  `;
+  `];
 
   constructor() { 
     super();
@@ -53,7 +48,7 @@ export class PrimerComponente extends LitElement {
       <h2>${this.title}</h2>
       <slot></slot>
       <button
-        class="action"
+        class="primary"
         @click=${this._onClick}
       >
       Click
